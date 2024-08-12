@@ -1,0 +1,32 @@
+#SConscript(['build/bin/SConstruct', 'build/etc/SConstruct'])
+
+env = Environment(xxx)
+env.Append(CPPPATH = ['/include',
+                        '/usr/local/include',
+                        '/usr/include',
+                        '../../public',
+                        '/opt/Ice-3.4.2/include',
+                        '../../public/common/src/include',
+                        '../../lite/common/Interface/Protobuf',
+                        '../../lite/common/libgoocar/include/',
+                        '../../public/netframe2/include/',
+                        '../../public/gmlogapi/src/include',
+                        '../../GUD/src',
+                        '../../common_src/COMMON_TRACE/common'
+                        ])
+env.Append(CPPDEFINES = ['_LINUX_OS_','RAPIDJSON_HAS_STDSTRING', '__STDC_FORMAT_MACROS', 'USE_GMLOGAPI'])
+env.Append(CPPFLAGS = ['-g', '-Wall', '-fPIC','-std=c++0x', '-Wno-deprecated'])
+env.Append(LIBS = ['lite', 'common', 'lib_redis_cpp_client', 'log4cxx', 'Ice', 'IceUtil', 'boost_thread-mt', 'pthread', 'rt', 'ssl', 'protobuf', 'nframe2', 'crypto'])
+env.Append(LIBPATH = ['../../public/common/src/src', '../../public/redis', '/usr/lib/nptl', '/usr/lib', '/usr/local/lib', '/opt/Ice-3.4.2/lib64', '../../public/libexe'])
+env.Append(RPATH = ['/usr/lib', '/usr/local/lib', '/opt/Ice-3.4.2/lib64', '/usr/lib/nptl'])
+
+src_files = Glob('*.cpp')
+src_files.extend([
+	'../../public/common/src/src/TraceThread.cpp',
+	'../../common_srv/COMMON_TRACE/common/trace.pb.cc'
+])
+
+gprsHelper = env.Program('xxx', src_files)
+
+# Installation
+#env.Install('build/bin', gprsHelper)

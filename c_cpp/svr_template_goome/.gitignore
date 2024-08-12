@@ -1,0 +1,9 @@
+.idea/
+.svn/
+.vs/
+.vscode/
+cmake-build-debug/
+cmake-build-release/
+rsync.log
+.sconsign_dblite
+.DS_Store
